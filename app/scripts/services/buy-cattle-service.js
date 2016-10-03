@@ -145,6 +145,7 @@
                 gender_grading: animal.gender,
                 on_bip: animal.on_bip,
                 bip_deduction: animal.bip_deduction,
+                transport_fee: animal.transport_deduction,
                 price_offered: animal.price,
                 transaction_accepted: animal.transaction_accepted,
                 producer_no: animal.producer_no,
