@@ -1,0 +1,116 @@
+<!--Actions-->
+<div class="text-left dispatch-actions no-print">
+    <button class="btn-default btn-twin" ng-click="vm.printList()">
+        <div class="btn-content">
+            <div class="display_table">
+                <div class="table-cell">Print</div>
+            </div>
+        </div>
+    </button>
+
+    <button class="btn-default btn-twin" ng-click="vm.exit()">
+        <div class="btn-content">
+            <div class="display_table">
+                <div class="table-cell">Exit</div>
+            </div>
+        </div>
+    </button>
+</div>
+
+<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <div id="transfer_pdf_content" class="col-xs-12 no-padding">
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid gray !important;
+                padding: 10px;
+            }
+
+            .col-xs-6 {
+                width: 50%;
+                float: left;
+            }
+
+            input {
+                width: 100%;
+            }
+
+            .text-right {
+                text-align: right;
+            }
+
+            .no-padding {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            .sales, .table {
+                width: 100%;
+                border: none;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+        </style>
+
+        <h2 class="text-center text-underline">Dispatch Note</h2>
+
+        <div class="row">
+            <div class="col-xs-6 no-padding margin-top50 text-left small">
+                <div class="text-capitalize">Registration Number: {{vm.truck.transfer_vehicle_registration_no}}</div>
+                <div>Driver Name: {{vm.truck.transfer_driver}}</div>
+            </div>
+
+            <div class="col-xs-6 no-padding margin-top50 text-right small">
+                <div>Load Time first item: {{vm.truck.transfer_animals[0].loaded_on}}</div>
+                <div>Load Time last item: {{vm.truck.transfer_animals[vm.truck.transfer_animals.length - 1].loaded_on}}
+                </div>
+            </div>
+        </div>
+
+        <!--List-->
+        <div class="row">
+            <div class="sales">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Slaughter Date</th>
+                        <th>Body Number</th>
+                        <th>Portion</th>
+                        <th>Weight</th>
+                        <th>Health</th>
+                        <th>Direct To Client</th>
+                        <th>Weight at Client's Scale</th>
+                        <th>Receipt Number</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="a in vm.truck.transfer_animals">
+                    <tr class="pointer">
+                        <td class="text-center">{{a.slaughter_on}}</td>
+                        <td class="text-center text-capitalize">{{a.body_counter}}</td>
+                        <td class="text-center text-capitalize">{{a.side_part}}</td>
+                        <td class="text-center">{{a.weight}}</td>
+                        <td class="text-center text-uppercase">{{a.health}}</td>
+                        <td class="text-center">
+                            <input type="checkbox" ng-model="a.direct">
+                        </td>
+                        <td class="text-center"><input type="input"></td>
+                        <td class="text-center"><input type="input"></td>
+                    </tr>
+                    <!--<tr class="border-bottom2">
+                        <td colspan="8" align="center">
+                            <div class="barcode">
+                                <barcode string="{{a.barcode}}" type="code128b" options="vm.barcode_options"></barcode>
+                            </div>
+                        </td>
+                    </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

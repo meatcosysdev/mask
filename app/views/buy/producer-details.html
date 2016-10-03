@@ -1,0 +1,148 @@
+<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h2 class="text-left">New Producer</h2>
+
+    <div>
+        <div class="col-xs-12 no-padding">
+            <div class="box">
+                <div class="legend-title">Producer Info</div>
+                <!-- Producer Form-->
+                <form class="form form-horizontal col-xs-12 col-sm-6 producer-form" role="form" name="producerForm">
+                    <!--ID Number-->
+                    <div class="text-left">
+                        <label>ID Number:</label>
+                        <input ng-model="vm.producer.id_no"
+                               ng-required="true"
+                               class="form-control"
+                               placeholder="ID Number"
+                               type="number"
+                               name="id_no"/>
+                    </div>
+
+                    <!--ID Name-->
+                    <div class="text-left">
+                        <label>ID Name:</label>
+                        <input ng-model="vm.producer.id_name" ng-required="true" class="form-control"
+                               placeholder="ID Name" type="text" name="id_name"/>
+                    </div>
+
+                    <!--Producer No-->
+                    <div class="text-left">
+                        <label>Producer Number:</label>
+                        <input ng-model="vm.producer.producer_no" ng-required="true" class="form-control"
+                               placeholder="Producer Number" type="text" name="producer_no"/>
+                    </div>
+
+                    <!--VAT Name-->
+                    <div class="text-left">
+                        <label>VAT Name:</label>
+                        <input ng-model="vm.producer.vat_name" class="form-control"
+                               placeholder="VAT Name" type="text" name="vat_name"/>
+                    </div>
+
+                    <!--VAT Number-->
+                    <div class="text-left">
+                        <label>VAT Number:</label>
+                        <input ng-model="vm.producer.vat_no" class="form-control"
+                               placeholder="VAT Number" type="text" name="vat_no"/>
+                    </div>
+
+                    <div class="margin-top10 text-left">
+                        <input ng-model="vm.producer.want_membership" type="checkbox"
+                               ng-change="vm.changeMemberShipOption()"/> Member
+                    </div>
+                </form>
+
+                <!-- Member Form-->
+                <form ng-if="vm.producer.want_membership" ng-required="true"
+                      class="form form-horizontal col-xs-12 col-sm-6 producer-form" role="form" name="memberForm">
+                    <div style="visibility: hidden;">
+                        <label></label>
+                        <input class="form-control"/>
+                    </div>
+
+                    <div class="text-left">
+                        <label>Telephone Number:</label>
+                        <input ng-model="vm.producer.telephone_no" class="form-control" placeholder="Telephone Number"
+                               type="text" name="telephone_no"/>
+                    </div>
+
+                    <div class="text-left">
+                        <label>Physical Address:</label>
+                        <input ng-model="vm.producer.physical_address" class="form-control"
+                               placeholder="Physical Address" type="text" name="physical_address"/>
+                    </div>
+
+                    <div class="text-left">
+                        <label>PO Box:</label>
+                        <input ng-model="vm.producer.postal_address" class="form-control" placeholder="PO Box"
+                               type="text" name="postal_address"/>
+                    </div>
+                    <div class="text-left">
+                        <label>Email:</label>
+                        <input ng-model="vm.producer.email_address" class="form-control" placeholder="Email" type="text"
+                               name="email_address"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--Permit Info-->
+        <div class="col-xs-12 no-padding margin-top20">
+            <div class="grading-box">
+                <div class="legend-title">Permit Info</div>
+
+                <form class="form form-horizontal col-xs-12 col-sm-6 producer-form" role="form" name="permitForm">
+                    <div class="text-left">
+                        <label>Permit Number:</label>
+                        <input ng-model="vm.producer.permit_no"
+                               ng-pattern="/^[a-zA-Z0-9_]+$/"
+                               name="permit_no"
+                               class="form-control"
+                               placeholder="Permit Number"/>
+
+                        <p class="alert-danger" ng-show="(!permitForm.permit_no.$valid && permitForm.permit_no.$dirty)">
+                            * Permit number must be alphanumerical
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--Actions-->
+        <div class="col-xs-12 no-padding margin-top20">
+            <!--Find-->
+            <div class=" col-sm-3 col-xs-12 no-padding">
+                <button class="btn-wide pointer btn-default" ng-click="vm.findProducer()">
+                    <div class="btn-content">
+                        <div class="display_table">
+                            <div class="table-cell">Find</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!--Next-->
+            <div class="col-sm-3 col-sm-offset-1 col-xs-12 no-padding">
+                <button class="btn-wide pointer btn-default" ng-disabled="!producerForm.$valid || !vm.producer.permit_no"
+                        ng-click="vm.updateProducer()">
+                    <div class="btn-content">
+                        <div class="display_table">
+                            <div class="table-cell">Next</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!--Exit-->
+            <div class="col-sm-3 col-sm-offset-2 col-xs-12 no-padding">
+                <button class="btn-wide pointer btn-default" ng-click="vm.exit()">
+                    <div class="btn-content">
+                        <div class="display_table">
+                            <div class="table-cell">Exit</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="col-sm-4 no-padding">
+    <div class="grading-box">
+        <div class="legend-title">Fit for Consumption</div>
+        <div class="col-xs-6 col-sm-12 no-padding" ng-repeat="b in main_buttons | orderBy: 'position'">
+            <div class="btn-square120 pointer noselect font12 btn-default" ng-click="addMainValue(b)" ng-class="{'btn-success': b.isSelected}">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">{{b['text']}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-7 col-sm-offset-1 no-padding">
+    <div class="box">
+        <div class="legend-title">Condemned</div>
+        <div class="col-xs-6 no-padding" ng-repeat="b in secondary_buttons | orderBy: 'position'">
+            <div class="btn-square120 pointer noselect font12 btn-default" ng-click="addValue(b)" ng-class="{'btn-success': b.isSelected}">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">{{b['text']}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,111 @@
+<div class="col-xs-12">
+
+    <div class="col-xs-12 no-padding print-actions no-print">
+        <div class="col-xs-4 no-padding">
+            <button class="btn-default btn-wide" ng-click="vm.getSlaughterDetails()"
+                    ng-disabled="!vm.slaughter_date">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Search</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-xs-4 no-padding">
+            <button class="btn-default btn-wide" ng-click="vm.printReport()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Print</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+        <div class="col-xs-4 no-padding">
+            <button class="btn-default btn-wide" ng-click="vm.exit()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Exit</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div id="daily_pdf_report">
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid gray !important;
+                padding: 10px;
+            }
+
+            .margin-top20 {
+                margin-top: 20px !important;
+            }
+
+            .no-padding {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            .table {
+                width: 100%;
+                border: none;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+        </style>
+
+        <div class="col-xs-12">
+            <h1 class="text-center">Slaughter Report</h1>
+
+            <form class="form form-horizontal col-xs-3 no-padding" role="form" name="animalForm">
+                <div class="margin-bottom10 text-left">
+                    <label>Slaughter date:</label>
+                    <input ng-model="vm.slaughter_date"
+                           class="form-control"
+                           placeholder="{{vm.slaughter_date | date:'dd/MM/yyyy' }}"
+                           type="date"
+                           name="date"/>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-xs-12 margin-top20">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Tag Number</th>
+                    <th>Body Number</th>
+                    <th>Left Weight</th>
+                    <th>Right Weight</th>
+                    <th>Grade</th>
+                    <th>Teeth</th>
+                    <th>Live Weight</th>
+                    <th>Slaughter %</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="animal in vm.slaughter_animals | orderBy: '-body_counter'"
+                    ng-click="vm.selectSlaughter(animal)" class="pointer" ng-class="{'success': animal.isSelected }">
+                    <td class="text-left">{{animal.tag_number}}</td>
+                    <td class="text-left">{{animal.body_counter}}</td>
+                    <td class="text-left">{{animal.left_mass}}</td>
+                    <td class="text-left">{{animal.right_mass}}</td>
+                    <td class="text-left">{{animal.fat_grading}}</td>
+                    <td class="text-left">{{animal.teeth_grading}}</td>
+                    <td class="text-left">{{animal.live_mass}}</td>
+                    <td class="text-left">{{animal.slaughter_percent | number: 2}}%</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <div class="col-xs-12 col-sm-4 no-padding margin-right10">
+        <div class="grading-box text-left margin-top10 margin-bottom10">
+            <div class="legend-title">Animal details</div>
+            <div>Body number: {{vm.slaughter_animal.body_counter}}</div>
+            <div class="text-capitalize">{{vm.slaughter_animal.side}}</div>
+        </div>
+
+        <form class="form form-horizontal col-xs-12 no-padding" role="form" name="animalForm">
+            <!--WEIGHT-->
+            <div class="margin-bottom10 text-left">
+                <label>Weight:</label>
+                <input ng-model="vm.slaughter_animal.side_mass"
+                       ng-required="true"
+                       ng-pattern="/^\d{0,3}(\.\d{0,2}){0,1}$/"
+                       class="form-control"
+                       class="form-control"
+                       placeholder="Weight"
+                       type="text"
+                       name="weight"/>
+
+                <p class="alert-danger"
+                   ng-show="(!animalForm.weight.$valid && animalForm.weight.$dirty)">
+                    * Weight should not exceed 3 digits and 2 decimals
+                </p>
+            </div>
+        </form>
+
+        <div class="col-xs-12 no-padding">
+            <button class="btn-wide pointer btn-default pull-left" ng-click="vm.gradeAnimal()"
+                    ng-disabled="!vm.slaughter_animal.side_mass">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Next</div>
+                    </div>
+                </div>
+            </button>
+
+            <button class="btn-wide pointer btn-default pull-left"
+                    ng-show="!vm.show_manual_input"
+                    ng-click="vm.show_manual_input = true">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Manual Input</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!--Touch-pad input-->
+    <div class="col-sm-6 col-sm-offset-1 no-padding margin-top5" ng-show="vm.show_manual_input">
+        <animal-weight
+                result="vm.slaughter_animal.side_mass"
+                valid="animalForm.weight.$valid"
+                changed="animalForm.weight.$dirty"
+                regex="^\d{0,3}(\.\d{0,2}){0,1}$">
+        </animal-weight>
+    </div>
+</div>

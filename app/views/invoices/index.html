@@ -1,0 +1,58 @@
+<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h2 class="text-left">Dispatch Notes</h2>
+
+    <!--Actions-->
+    <div class="row invoices-actions">
+        <div class="col-xs-12 col-sm-3 margin-top5">
+            <select ng-model="vm.note_type">
+                <option value="" ng-selected="true">ALL</option>
+                <option value="purchase_note">PURCHASE INVOICES</option>
+                <option value="sell_ofall_note">SELL INVOICES</option>
+                <option value="transfer_note">TRANSFER INVOICES</option>
+            </select>
+        </div>
+
+        <div class="col-xs-12 col-sm-3 margin-top5">
+            <select ng-model="vm.note_status">
+                <option value="" ng-selected="true">ALL</option>
+                <option value="printed">PRINTED</option>
+                <option value="to_print">TO PRINT</option>
+            </select>
+        </div>
+
+        <div class="col-xs-12 col-sm-3 col-sm-offset-3 ">
+            <a class="btn-default btn-exit-invoices" ui-sref="home">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Exit</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="invoices-list">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Create Date</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="n in vm.dispatch_notes | filter: {current_status : vm.note_status} | filter: {doc_type : vm.note_type}" class="pointer">
+                <td class="text-left">{{n.created_date}}</td>
+                <td class="text-left">{{n._id}}</td>
+                <td class="text-left">{{n.doc_type}}</td>
+                <td class="text-left">{{n.current_status}}</td>
+                <td class="text-center text-capitalize">
+                    <button class="btn btn-xs btn-danger" ng-click="vm.printDocument(n)">Print</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

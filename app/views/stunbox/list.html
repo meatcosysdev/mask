@@ -1,0 +1,51 @@
+<div class="col-xs-12 col-sm-10 col-sm-offset-1" ng-init="vm.getStunboxAnimals()">
+    <h1 class="text-left">Stunbox</h1>
+
+    <div>
+        <div class="stunbox_results">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Body Number</th>
+                    <th>Tag No</th>
+                    <th>Weight</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="r in vm.stunbox_animals | orderBy: '-body_counter'"
+                    ng-click="vm.selectAnimalForEdit(r)" class="pointer"
+                    ng-class="{'selected-animal': r.isSelected}">
+                    <td class="text-left">{{r.body_counter}}</td>
+                    <td class="text-left">{{r.rfid}}</td>
+                    <td class="text-left">{{r.weight}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-4 col-xs-12 no-padding">
+            <div class="btn-wide pointer btn-default">
+                <a ui-sref=".animal">
+                    <div class="btn-content">
+                        <div class="display_table">
+                            <div class="table-cell">{{vm.new_animal._id ? 'Edit Animal' : 'Add Animal'}}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-4 col-sm-4 col-xs-12 no-padding">
+            <div class="btn-wide pointer btn-default">
+                <a ui-sref="home">
+                    <div class="btn-content">
+                        <div class="display_table">
+                            <div class="table-cell">Exit</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

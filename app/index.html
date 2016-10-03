@@ -1,0 +1,72 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MeatCo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+   <!-- Custom theme-->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/toastr/toastr.min.css">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/sign.css">
+</head>
+
+<body ng-app="MeatCoApp">
+<div class="container">
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="row main-container">
+            <div ui-view></div>
+        </div>
+    </div>
+</div>
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/pouchdb/dist/pouchdb.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/json3/lib/json3.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/toastr/toastr.min.js"></script>
+<script src="bower_components/signature_pad/signature_pad.min.js"></script>
+<script src="bower_components/angular-barcode/dist/angular-barcode.min.js"></script>
+<script src="bower_components/jsPDF/dist/jspdf.min.js"></script>
+<script src="bower_components/html2canvas/dist/html2canvas.min.js"></script>
+<script src="bower_components/angular-websocket/dist/angular-websocket.min.js"></script>
+
+
+<script src="scripts/app.js"></script>
+<script src="scripts/services/config.js"></script>
+
+<!--Controllers-->
+<script src="scripts/controllers/home-controller.js"></script>
+<script src="scripts/controllers/stunbox-controller.js"></script>
+<script src="scripts/controllers/slaughter-controller.js"></script>
+<script src="scripts/controllers/buy-cattle-controller.js"></script>
+<script src="scripts/controllers/transfer-controller.js"></script>
+<script src="scripts/controllers/sell-offal-controller.js"></script>
+<script src="scripts/controllers/producer-controller.js"></script>
+<script src="scripts/controllers/dispatch-notes-controller.js"></script>
+<!--Directives-->
+<script src="scripts/directives/animal-weight.js"></script>
+<script src="scripts/directives/animal-fat.js"></script>
+<script src="scripts/directives/animal-health.js"></script>
+<script src="scripts/directives/animal-teeth.js"></script>
+<script src="scripts/directives/animal-hide.js"></script>
+<script src="scripts/directives/animal-gender.js"></script>
+<!--Services-->
+<script src="scripts/services/pouchdb.js"></script>
+<script src="scripts/services/animal-service.js"></script>
+<script src="scripts/services/scanner-service.js"></script>
+<script src="scripts/services/transfer-animal-service.js"></script>
+<script src="scripts/services/buy-cattle-service.js"></script>
+<script src="scripts/services/sale-offal-service.js"></script>
+<script src="scripts/services/dispatch-notes-service.js"></script>
+<script src="scripts/services/print-service.js"></script>
+</body>
+</html>

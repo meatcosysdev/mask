@@ -1,0 +1,133 @@
+<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h2 class="text-left">Animal Details</h2>
+
+    <div class="row">
+        <div class="col-xs-12 text-left">
+            <div>TAG_NO: {{vm.buy_animal.tag_no}}</div>
+            <div>WEIGHT: {{vm.buy_animal.weight}}</div>
+        </div>
+    </div>
+
+
+    <!--Actions-->
+    <div class="row text-left no-padding margin-bottom10">
+        <div class="col-xs-6 col-sm-4">
+            <button class="btn-wide btn-reject btn-danger" ng-click="vm.rejectAnimal()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Reject</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-xs-6 col-sm-4">
+            <button class="btn-wide btn-accept btn-success" ng-click="vm.acceptAnimal()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Accept</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-xs-12 price-offer margin-top10">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="display_table">
+                        <div class="table-cell">
+                            <span class="text800">Offer price:</span>
+                    <span>
+                        <input ng-model="vm.buy_animal.price"
+                               type="number"
+                               step="any"
+                               min="1"
+                               max="50000"
+                               class="form-control col-xs-6"
+                               placeholder="Offer Price"
+                               name="price"/>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="display_table margin-top10">
+                        <div class="table-cell">
+                            <span class="text800">Advance:</span>
+                    <span>
+                        <input ng-model="vm.buy_animal.advance"
+                               type="number"
+                               step="any"
+                               class="form-control col-xs-6"
+                               placeholder="Advance"
+                               name="advance"/>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="display_table margin-top10">
+                        <div class="table-cell">
+                            <span class="text800">Transport deduction:</span>
+                    <span>
+                        <input ng-model="vm.buy_animal.transport_deduction"
+                               type="number"
+                               step="any"
+                               class="form-control col-xs-6"
+                               placeholder="Transport deduction"
+                               name="transport"/>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row no-padding text-left margin-top20">
+        <div class="col-xs-12 text500">ID Name: {{vm.producer.id_name}}</div>
+        <div class="col-xs-12 text500">Producer Number: {{vm.producer.producer_no}}</div>
+        <div class="col-xs-12 text500" ng-if="vm.producer.vat_name">VAT Name: {{vm.producer.vat_name}}</div>
+        <div class="col-xs-12 text500" ng-if="vm.producer.vat_no">VAT Number: {{vm.producer.vat_no}}</div>
+    </div>
+
+
+    <div class="row no-padding text-left margin-top20">
+        <div class="col-xs-8">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Tag No</th>
+                    <th>Weight</th>
+                    <th>Grade</th>
+                    <th>MOC</th>
+                    <th>Agreed Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="animal in vm.buy_animal_list | orderBy: '-tag_no'">
+                    <td class="text-left">{{animal.tag_no}}</td>
+                    <td class="text-left text-capitalize">{{animal.weight}}</td>
+                    <td class="text-left text-capitalize">{{animal.teeth}}</td>
+                    <td class="text-left text-capitalize">{{animal.on_bip ? 'Yes' : 'No'}}</td>
+                    <td class="text-left">{{animal.price | currency:$:2}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MOC notification-->
+<div class="menu-panel" ng-show="!!vm.showMOCNotification"></div>
+<div class="center-menu notifications-popup" ng-show="!!vm.showMOCNotification">
+    <div class="col-xs-12">
+        This is a MOC animal, registered to Producer Name, Producer Number
+    </div>
+    <div class="text-center pointer btn-proceed" ng-click="vm.showMOCNotification = false">Proceed</div>
+</div>

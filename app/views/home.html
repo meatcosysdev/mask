@@ -1,0 +1,95 @@
+<div class="text-center">
+    <div class="watermark"></div>
+    <h1 class="text-center">MASK Console</h1>
+
+    <div class="ip-container">
+        <a class="pull-right" ui-sref="invoices">Invoices</a>
+        <div ng-if="vm.client_ip" class="text-info">IP: {{vm.client_ip}}</div>
+    </div>
+
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <div class="box padding30">
+            <div class="legend-title">Procurement</div>
+
+            <div class="col-xs-4 no-padding">
+                <div class="btn-default square-tile">
+                    <a ui-sref="buy">
+                        <div class="btn-content">
+                            <div class="display_table">
+                                <div class="table-cell">Buy Cattle</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-xs-4 no-padding">
+                <div class="btn-default square-tile">
+                    <a ui-sref="sell">
+                        <div class="btn-content">
+                            <div class="display_table">
+                                <div class="table-cell">Sell Offal</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-xs-4 no-padding">
+                <div class="btn-default square-tile">
+                    <a ui-sref="producers">
+                        <div class="btn-content">
+                            <div class="display_table">
+                                <div class="table-cell">Producers</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <div class="box padding30">
+            <div class="legend-title">Slaughter</div>
+            <div class="col-xs-4 no-padding">
+                <div class="btn-default square-tile">
+                    <a ui-sref="stunbox">
+                        <div class="btn-content">
+                            <div class="display_table">
+                                <div class="table-cell">Stunbox</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-xs-4 no-padding">
+                <div class="btn-default square-tile">
+                    <a ui-sref="slaughter">
+                        <div class="btn-content">
+                            <div class="display_table">
+                                <div class="table-cell">Slaughter</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-xs-4 no-padding">
+                <div class="btn-default square-tile">
+                    <a ui-sref="transfer">
+                        <div class="btn-content">
+                            <div class="display_table">
+                                <div class="table-cell">Transfer</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ui-view></div>

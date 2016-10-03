@@ -1,0 +1,76 @@
+<div class="col-xs-12 col-sm-10 col-sm-offset-1" ng-init="vm.getSlaughterAnimals()">
+    <h1 class="text-left">Slaughter Grade</h1>
+
+    <div>
+        <div class="stunbox_results">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Body Number</th>
+                    <th>Side</th>
+                    <th>Status</th>
+                    <th>Health</th>
+                    <th>Weight</th>
+                    <th class="text-center">Select</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="animal in vm.animals | orderBy: '-body_counter'"
+                    ng-click="vm.selectAnimalForGrading(animal)" class="pointer"
+                    ng-class="{'selected-animal': animal.isSelected, 'success': animal.current_status == 'Created' && !animal.is_condemned && !animal.condemnation, 'danger': animal.is_condemned, 'warning': animal.condemnation == 'measles'}">
+                    <td class="text-left">{{animal.body_counter}}</td>
+                    <td class="text-left text-capitalize">{{animal.side}}</td>
+                    <td class="text-left text-capitalize">{{animal.current_status == 'Created' ? 'Graded' : animal.current_status}}</td>
+                    <td class="text-left text-capitalize">
+                        {{animal.current_status == 'Ungraded' ? 'n/a' : animal.condemnation || 'Healthy'}}
+                    </td>
+                    <td class="text-left">{{animal.side_mass}}</td>
+                    <td class="text-center">
+                        <input type="radio" ng-checked="animal.isSelected"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-3 col-xs-12 padding-left0">
+            <button class="btn-wide pointer btn-default" ng-disabled="!vm.slaughter_animal" ng-click="vm.goto('.health')">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Grade</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-sm-3 col-xs-12 padding-left0">
+            <button class="btn-wide pointer btn-default" ng-disabled="!vm.slaughter_animal" ng-click="vm.rePrint()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">RE-Print Tag</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-sm-3 col-xs-12 padding-left0">
+            <button class="btn-wide pointer btn-default" ng-click="vm.goto('.search')">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Search</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-sm-3 col-xs-12 no-padding pull-right">
+            <button class="btn-wide pointer btn-default" ng-click="vm.exit()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Exit</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>

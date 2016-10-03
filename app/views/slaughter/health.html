@@ -1,0 +1,31 @@
+<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <div class="col-xs-12 col-sm-4 no-padding">
+        <div class="grading-box text-left margin-top10">
+            <div class="legend-title">Animal details</div>
+            <div>Body number: {{vm.slaughter_animal.body_counter}}</div>
+            <div class="text-capitalize">{{vm.slaughter_animal.side}}</div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 no-padding">
+        <animal-health
+            is_condemned="vm.slaughter_animal.is_condemned"
+            condemnation="vm.slaughter_animal.condemnation">
+        </animal-health>
+    </div>
+
+    <div class="col-xs-12 no-padding">
+        <div class="col-sm-5 col-xs-12 no-padding">
+            <button class="btn-wide pointer btn-default font-normal"
+                    ng-click="vm.goto('slaughter.fat')">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Next</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,177 @@
+<!--Actions-->
+<div class="col-xs-6 no-padding print-actions no-print">
+    <button class="btn-default btn-twin" ng-click="vm.print()">
+        <div class="btn-content">
+            <div class="display_table">
+                <div class="table-cell">Print</div>
+            </div>
+        </div>
+    </button>
+
+    <button class="btn-default btn-twin" ng-click="vm.goto('buy')">
+        <div class="btn-content">
+            <div class="display_table">
+                <div class="table-cell">Next Producer</div>
+            </div>
+        </div>
+    </button>
+</div>
+
+<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <div id="purchase_pdf_content" class="col-xs-12 no-padding">
+        <style>
+            label {
+                font-weight: 500;
+                margin-bottom: 0;
+                font-size: 13px;
+            }
+
+            table {
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid gray !important;
+                padding: 10px;
+            }
+
+            .text-right {
+                text-align: right;
+            }
+
+            .margin-top20 {
+                margin-top: 20px !important;
+            }
+
+            .margin-top30 {
+                margin-top: 30px !important;
+            }
+
+            .no-padding {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            .table {
+                width: 100%;
+                border: none;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .col-xs-6.text-left,  .col-xs-6.text-right {
+                width: 50%;
+                float: left;
+            }
+
+
+        </style>
+        <h1 class="text-center">Tax Invoice</h1>
+
+        <div class="row margin-top30">
+            <div class="col-xs-6 text-left">
+                <div>From:</div>
+                <div><label>Full Name:</label> {{vm.producer.id_name}}</div>
+                <div><label>Producer Number:</label> {{vm.producer.producer_no}}</div>
+                <div ng-if="vm.producer.vat_name"><label>VAT Name:</label> {{vm.producer.vat_name}}</div>
+                <div ng-if="vm.producer.vat_no"><label>VAT No:</label> {{vm.producer.vat_no}}</div>
+            </div>
+
+            <div class="col-xs-6 text-right">
+                <div>To:</div>
+                <div>{{vm.company.name}}</div>
+                <div>{{vm.company.address}}</div>
+                <div>{{vm.company.phone}}</div>
+                <div>{{vm.company.vat_name}}</div>
+                <div><label>VAT Reg No.</label> {{vm.company.vat_number}}</div>
+            </div>
+        </div>
+
+        <!--Animals-->
+        <div class="row no-padding text-center margin-top20">
+            <div class="col-xs-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Tag No</th>
+                        <th>Weight</th>
+                        <th>Gender</th>
+                        <th>Grading</th>
+                        <th>Price</th>
+                        <th>Transport</th>
+                        <th>Meatboard levy</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="animal in vm.buy_animal_list | orderBy: '-tag_no'">
+                        <td class="text-center">{{animal.tag_no}}</td>
+                        <td class="text-center text-capitalize">{{animal.weight}}</td>
+                        <td class="text-center text-capitalize">{{animal.gender}}</td>
+                        <td class="text-center text-capitalize">{{animal.teeth}}</td>
+                        <td class="text-center">{{animal.price | currency:$:2}}</td>
+                        <td class="text-center">-{{animal.transport_deduction || 0 | currency:$:2}}</td>
+                        <td class="text-center">-{{animal.meatboard_levy_amount || 0 | currency:$:2}}</td>
+                        <td class="text-center">{{animal.final_price | currency:$:2}}</td>
+                    </tr>
+
+                    <tr class="pointer">
+                        <td class="text-center" colspan="8">&nbsp;</td>
+                    </tr>
+                    <tr class="pointer">
+                        <td class="text-center" colspan="4">&nbsp;</td>
+                        <td class="text-center">{{vm.totalPrice | currency:$:2}}</td>
+                        <td class="text-center">-{{vm.totalTransport | currency:$:2}}</td>
+                        <td class="text-center">-{{vm.meatboard_levy_amount | currency:$:2}}</td>
+                        <td class="text-center">{{vm.totalFinalPrice | currency:$:2}}</td>
+                    </tr>
+                    <tr class="pointer">
+                        <td class="text-center" colspan="6">&nbsp;</td>
+                        <td class="text-center">Advance</td>
+                        <td class="text-center">-{{vm.totalAdvance | currency:$:0}}</td>
+                    </tr>
+
+                    <tr class="pointer">
+                        <td class="text-center" colspan="6">&nbsp;</td>
+                        <td class="text-center">VAT</td>
+                        <td class="text-center">{{vm.vat_value | currency:$:2}}</td>
+                    </tr>
+                    <tr class="pointer">
+                        <td class="text-center" colspan="6">&nbsp;</td>
+                        <td class="text-center">Total</td>
+                        <td class="text-center">{{vm.totalFinalPrice - vm.totalAdvance + vm.vat_value | currency:$:2}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!--Signatures-->
+        <signature-pad accept="accept" clear="clear" height="220" width="568"></signature-pad>
+        <div id="signature-producer" class="m-signature-pad">
+            <div class="m-signature-pad-body">
+                <canvas id="prod"></canvas>
+            </div>
+            <div class="m-signature-pad-footer noselect">
+                <div class="description">Producer Signature
+                 <!--   <button type="button" class="button pull-right no-print" ng-click="vm.clearSignature('prod')">Clear
+                    </button>-->
+                </div>
+            </div>
+        </div>
+
+        <div id="signature-representative" class="m-signature-pad margin-top20">
+            <div class="m-signature-pad-body">
+                <canvas id="rep"></canvas>
+            </div>
+            <div class="m-signature-pad-footer noselect">
+                <div class="description">Representative Signature
+                  <!--  <button type="button" class="button pull-right no-print" ng-click="vm.clearSignature('rep')">Clear
+                    </button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

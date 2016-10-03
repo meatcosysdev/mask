@@ -1,0 +1,389 @@
+body {
+    font-family: 'Lato', verdana, sans-serif;
+    text-align: center;
+}
+
+.watermark {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    background: url('../img/mask.png');
+    background-size: 550px;
+    background-repeat: no-repeat;
+    background-position: center 135px;
+    opacity: 0.4;
+}
+
+button[disabled=disabled], button:disabled {
+    color: lightgray !important;
+}
+
+button:hover {
+    border: solid 2px lightgray;
+}
+
+@media print {
+    table, th, td {
+        border: 1px solid black !important;
+    }
+
+    .transfer_results, .sales {
+        border: none !important;
+    }
+}
+
+/* MAIN MENU */
+.btn-default {
+    font-size: 150%;
+    position: relative;
+    width: 100px;
+    padding-bottom: 100px;
+    border: solid 1px lightgray;
+    overflow: hidden;
+    margin: 5px auto auto;
+    -webkit-box-shadow: 2px 2px 2px 0px lightgray;
+    -moz-box-shadow: 2px 2px 2px 0px lightgray;
+    box-shadow: 2px 2px 2px 0px lightgray;
+}
+
+.square-tile {
+    width: 90% !important;
+    padding-bottom: 90% !important;
+    border: solid 2px lightgray !important;
+    margin: auto;
+    font-size: 20px;
+}
+
+.square-tile:hover {
+    border: solid 2px lightgray;
+}
+
+.square-tile a {
+    color: #000;
+    text-decoration: none;
+}
+
+.btn-content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    cursor: pointer;
+}
+
+.display_table {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    word-break: keep-all;
+}
+
+.box {
+    padding: 10px;
+    margin-top: 15px;
+    border: 3px solid lightgray;
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+.grading-box {
+    padding: 10px;
+    margin-top: 15px;
+    border: 3px solid lightgray;
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+.ip-container {
+    text-align: left;
+    left: 10px;
+    top: 10px;
+    position: absolute;
+}
+
+.legend-title {
+    position: absolute;
+    top: -13px;
+    font-size: 12px;
+    background: #FFFFFF;
+    padding: 3px 5px;
+}
+
+/* STUNBOX */
+.btn-wide {
+    font-size: 120%;
+    position: relative;
+    width: 100%;
+    padding-bottom: 60px;
+    overflow: hidden;
+    margin: 10px auto 0;
+    -webkit-box-shadow: 5px 5px 5px 0px lightgray;
+    -moz-box-shadow: 5px 5px 5px 0px lightgray;
+    box-shadow: 5px 5px 5px 0px lightgray;
+    cursor: pointer;
+}
+
+.btn-wide:hover {
+    border: solid 2px lightgray;
+}
+
+/*@media only handheld and (max-device-width: 760px) {
+    .btn-wide {
+        padding-bottom: 60px !important;
+    }
+}*/
+
+.btn-wide a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.stunbox_results {
+    height: 300px;
+    overflow-y: auto;
+    width: 100%;
+    border: solid 2px lightgray;
+}
+
+.table-striped tr td {
+    vertical-align: middle !important;
+}
+
+/* DIGITAL INPUT */
+.square-button {
+    font-size: 150%;
+    position: relative;
+    width: 95%;
+    padding-bottom: 88%;
+    border: solid 1px lightgray;
+    overflow: hidden;
+    margin: 5px auto auto;
+    -webkit-box-shadow: 2px 2px 2px 0px lightgray;
+    -moz-box-shadow: 2px 2px 2px 0px lightgray;
+    box-shadow: 2px 2px 2px 0px lightgray;
+    min-height: 75px;
+    min-width: 65px;
+    float: left;
+}
+
+.square-button:hover {
+    border: solid 1px lightgray;
+}
+
+/* Slaughter */
+.btn-square120 {
+    font-size: 150%;
+    position: relative;
+    width: 90px;
+    padding-bottom: 90px;
+    border: solid 1px lightgray;
+    overflow: hidden;
+    margin: 5px auto auto;
+    -webkit-box-shadow: 2px 2px 2px 0px lightgray;
+    -moz-box-shadow: 2px 2px 2px 0px lightgray;
+    box-shadow: 2px 2px 2px 0px lightgray;
+}
+
+.selected {
+    color: red;
+    font-weight: 400;
+}
+
+.btn-square120:hover {
+    border: solid 1px lightgray;
+}
+
+tr.selected-animal > td {
+    background: #BDBDBD !important;
+}
+
+tr.text-red td {
+    color: red;
+}
+
+/* Buy cattle */
+.btn-teeth {
+    width: 100px !important;
+    padding-bottom: 100px !important;
+}
+
+.btn-reject {
+    width: 150px;
+    padding-bottom: 50px;
+    display: inline-block;
+}
+
+.btn-accept {
+    width: 150px;
+    padding-bottom: 50px;
+    display: inline-block;
+}
+
+@media screen and (min-width: 760px) {
+    .producer-form div + div.text-left {
+        margin-top: 10px;
+    }
+}
+
+.print-actions {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 250px;
+    z-index: 1000;
+}
+
+@media screen and (max-width: 760px) {
+    .print-actions {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        top: 85%;
+        z-index: 1000;
+        width: 100%;
+    }
+}
+
+.btn-proceed {
+    border-top: solid 2px lightgray;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+/* TRANSFER */
+.transfer_results {
+    min-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+    border: solid 2px lightgray;
+}
+
+div#pdf_content {
+    overflow-x: auto;
+}
+
+.btn-twin {
+    width: 35% !important;
+    padding-bottom: 50px !important;
+    border: solid 2px lightgray !important;
+    margin: auto;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 120% !important;
+}
+
+.dispatch-actions {
+    position: absolute;
+    right: 15px;
+    top: 0;
+    width: 250px;
+    z-index: 1000;
+    text-align: right;
+}
+
+.border-bottom2 {
+    border-bottom: solid 2px lightgray;
+}
+
+.barcode {
+    border: solid 1px;
+    padding: 5px;
+    width: 85%;
+    display: block;
+    word-break: break-all;
+}
+
+.barcode canvas {
+    max-width: 100%;
+}
+
+.box-list {
+    padding: 10px;
+    margin-top: 15px;
+    border: 3px solid lightgray;
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+/* Sell Offal*/
+.buyer-form input, .buyer-form select {
+    margin-top: 5px;
+}
+
+.sales {
+    height: 250px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+@media print {
+    .sales {
+        height: 100%;
+        overflow-y: auto;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .box {
+        min-height: 260px;
+    }
+}
+
+@media screen and (min-width: 760px) {
+    .buyer-form input + label {
+        margin-top: 23px;
+    }
+}
+
+/* Admin console */
+@media screen and (min-width: 760px) {
+    .btn-admin {
+        padding-bottom: 50% !important;
+    }
+
+    .admin-console {
+        margin-top: 100px;
+    }
+}
+
+.input-files {
+    text-align: left;
+}
+
+.input-files input {
+    margin-bottom: 20px;
+}
+
+.cash_results {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.btn-exit-invoices {
+    width: 100% !important;
+    padding-bottom: 30px !important;
+    border: solid 2px lightgray !important;
+    margin: auto;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 120% !important;
+}
+
+.invoices-actions select {
+    width: 100%;
+    font-size: 15px;
+}

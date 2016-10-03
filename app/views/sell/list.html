@@ -1,0 +1,170 @@
+<div class="col-xs-12 col-sm-offset-1 col-sm-10">
+    <h2 class="text-left">Sell Offal</h2>
+
+    <!--Buyer details-->
+    <div class="col-xs-6 no-padding margin-bottom10">
+        <div class="box">
+            <div class="legend-title">Buyer Details</div>
+            <form class="form form-horizontal buyer-form text-left" role="form" name="buyerForm">
+                <div class="col-sm-6 padding-left0">
+                    <label>National ID:</label>
+                    <input ng-model="vm.buyer.national_id"
+                           class="form-control"
+                           ng-disabled="vm.disableBuyer"
+                           placeholder="National ID" type="text"/>
+
+                    <label>ID Name:</label>
+                    <input ng-model="vm.buyer.id_name"
+                           ng-disabled="vm.disableBuyer"
+                           class="form-control" placeholder="ID Name"
+                           type="text"/>
+                </div>
+
+                <div class="col-sm-6 padding-left0">
+                    <label>VAT Name:</label>
+                    <input ng-model="vm.buyer.vat_name"
+                           ng-disabled="vm.disableBuyer"
+                           class="form-control" placeholder="VAT Name"
+                           type="text"/>
+
+                    <label>VAT Number:</label>
+                    <input ng-model="vm.buyer.vat_no"
+                           ng-disabled="vm.disableBuyer"
+                           class="form-control"
+                           placeholder="VAT Number" type="text" name="vat_no"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--Offal-->
+    <div class="col-xs-6 margin-bottom10">
+        <div class="box text-left">
+            <div class="legend-title">Add Offal</div>
+            <form class="form form-horizontal buyer-form" role="form" name="offalForm">
+                <div class="col-sm-4 padding-left0">
+                    <label>Offal Type:</label>
+
+                    <select name="sale-type" class="form-control"
+                            ng-disabled="!vm.validBuyer"
+                            ng-model="vm.current_sale.type">
+                        <option value="offal packs">Offal Packs</option>
+                        <option value="heads">Heads</option>
+                        <option value="feet">Feet</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-4 padding-left0">
+                    <label>Price:</label>
+                    <input ng-model="vm.current_sale.unit_price"
+                           ng-disabled="!vm.validBuyer"
+                           ng-required="true" class="form-control"
+                           placeholder="Price" type="text" name="price"/>
+                </div>
+
+                <div class="col-sm-4 padding-left0">
+                    <label>Quantity:</label>
+                    <input ng-model="vm.current_sale.quantity"
+                           ng-disabled="!vm.validBuyer"
+                           ng-required="true" class="form-control"
+                           placeholder="Quantity" type="text" name="price"/>
+                </div>
+
+                <div class="col-xs-12 padding-left0">
+                    <div class="col-sm-4 col-sm-offset-4 col-xs-12 no-padding">
+                        <button class="btn-wide pointer btn-default" ng-disabled="!offalForm.$valid" ng-click="vm.addSaleItem()">
+                            <div class="btn-content">
+                                <div class="display_table">
+                                    <div class="table-cell">Add</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--Sale items-->
+    <div class="col-xs-12 margin-top20 padding-left0">
+        <div class="sales">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Unit Price</th>
+                    <th>Quantity Ordered</th>
+                    <th>Total Amount</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="s in vm.sales" ng-click="vm.selectSale(s)" class="pointer"
+                    ng-class="{'selected-animal': s.isSelected}">
+                    <td class="text-left text-capitalize">{{s.type}}</td>
+                    <td class="text-left">{{s.unit_price|currency:$:2}}</td>
+                    <td class="text-left">{{s.quantity}}</td>
+                    <td class="text-left">{{s.line_total|currency:$:2}}</td>
+                    <td class="text-left">
+                        <span class="btn btn-danger btn-xs" ng-click="vm.removeSale(r)">remove</span>
+                    </td>
+                </tr>
+
+                <tr class="pointer">
+                    <td colspan="5">&nbsp;</td>
+                </tr>
+                <tr class="pointer" ng-if="vm.totalAmount >= 0">
+                    <td class="text-left">VAT ({{vm.sell_offal_vat}}%)</td>
+                    <td colspan="2"></td>
+                    <td class="text-left">{{vm.totalVatAmount | currency:$:2}}</td>
+                    <td></td>
+                </tr>
+                <tr class="pointer" ng-if="vm.totalAmount >= 0">
+                    <td class="text-left">Total</td>
+                    <td class="text-left"></td>
+                    <td class="text-left">{{vm.totalQuantity}}</td>
+                    <td class="text-left">{{vm.totalAmount | currency:$:2}}</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Actions-->
+    <div class="col-xs-12 padding-left0">
+        <div class="col-sm-3 col-xs-12 no-padding">
+            <button class="btn-wide pointer btn-default" ng-disabled="!vm.sales || !vm.sales.length || !vm.buyer" ng-click="vm.updateTotals()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Update Totals</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-sm-3 col-xs-12 no-padding pull-right">
+            <button class="btn-wide pointer btn-default" ng-disabled="!vm.buyer || !vm.enabledTax" ng-click="vm.goto('sell.tax')">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Print Dispatch</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-xs-12 padding-left0">
+        <div class="col-sm-3 col-xs-12 no-padding">
+            <div class="btn-wide pointer btn-default">
+                <a ui-sref="home">
+                    <div class="btn-content">
+                        <div class="display_table">
+                            <div class="table-cell">Exit</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

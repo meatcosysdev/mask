@@ -1,0 +1,76 @@
+<div class="col-xs-12 col-sm-10 col-sm-offset-1" ng-init="vm.getTransferCandidates()">
+    <h2 class="text-left">Scan Carcasses to Runner Truck</h2>
+
+    <div class="col-xs-6 no-padding margin-bottom10">
+        <div class="box-list text-left">
+            <div class="legend-title">Truck Info</div>
+            <div class="text-capitalize">{{vm.truck.transfer_driver}}</div>
+            <div>{{vm.truck.transfer_vehicle_registration_no}}</div>
+        </div>
+    </div>
+
+    <div class="margin-top20">
+        <div class="transfer_results">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Slaughter Date</th>
+                    <th>Body</th>
+                    <th>Portion</th>
+                    <th>Side</th>
+                    <th>Weight</th>
+                    <th>Health</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="r in vm.truck.transfer_animals" ng-click="vm.selectAnimal(r)" class="pointer"
+                    ng-class="{'selected-animal': r.isSelected}">
+                    <td class="text-left">{{r.slaughter_on}}</td>
+                    <td class="text-left">{{r.body_counter}}</td>
+                    <td class="text-left">{{r.side_part}}</td>
+                    <td class="text-left">{{r.side}}</td>
+                    <td class="text-left">{{r.weight}}</td>
+                    <td class="text-left text-capitalize">{{r.health}}</td>
+                    <td class="text-left text-capitalize">
+                        <button class="btn btn-xs btn-danger" ng-click="vm.unloadPortion(r)">unload</button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-3 col-xs-12 no-padding">
+            <button class="btn-wide pointer btn-default" ng-click="vm.goto('transfer.barcode')">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Add</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-sm-offset-1 col-sm-3 col-xs-12 no-padding">
+            <button class="btn-wide pointer btn-default" ng-click="vm.goto('transfer.dispatch')">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Print Dispatch</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-3 col-xs-12 no-padding">
+            <div class="btn-wide pointer btn-default">
+                <a ui-sref="home">
+                    <div class="btn-content">
+                        <div class="display_table">
+                            <div class="table-cell">Exit</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

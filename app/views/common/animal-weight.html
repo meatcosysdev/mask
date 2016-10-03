@@ -1,0 +1,25 @@
+<div class="col-xs-12 no-padding">
+    <div class="col-xs-3 no-padding" ng-repeat="b in buttons | orderBy: 'position'" ng-if="!alphaMode">
+        <div class="square-button pointer noselect" ng-click="addValue(b)">
+            <div class="btn-content">
+                <div class="display_table">
+                    <div class="table-cell">{{b['value']}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="alphaMode">
+        <div class="col-xs-3 no-padding" ng-repeat="b in alphaButtons | orderBy: 'position'" >
+            <div class="square-button pointer noselect" ng-click="addValue(b)">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">{{b['value']}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
