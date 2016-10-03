@@ -9,6 +9,8 @@
             websocket_server: 'ws://astra3224.startdedicated.com:9292', //'ws://192.168.1.201:9292'
             sell_offal_vat: 10,
             meatboard_levy: 0.6,
-            minimum_buy_price: 1000
+            minimum_buy_price: 1000,
+            sb_reload_interval: 2000,
+            app_version: '1.2.0'
         });
 })();
