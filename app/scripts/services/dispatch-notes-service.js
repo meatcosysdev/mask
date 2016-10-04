@@ -20,7 +20,8 @@
             var notesDoc = {
                 "doc_type": data.doc_type,
                 "_id":  data.doc_type + new Date().toISOString(),
-                "current_status": "to_print",
+                "document_no": data.document_no,
+                "current_status": "ToPrint",
                 created_date: new Date().toLocaleDateString(),
                 "htmlContent": data.htmlContent,
             };

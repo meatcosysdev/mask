@@ -22,6 +22,7 @@
         };
 
         vm.transfer_animals = [];
+
         // Methods
         vm.goto = goto;
         vm.exit = exit;
@@ -30,23 +31,31 @@
         vm.loadPortion = loadPortion;
         vm.unloadPortion = unloadPortion;
         vm.printList = printList;
+        vm.getNewDocumentNumber = getNewDocumentNumber;
 
+        // INIT
+        if (data) vm.truck = data.truck || {};
+        if (vm.truck && vm.truck.transfer_vehicle_registration_no) vm.getNewDocumentNumber();
 
-        if (data) {
-            vm.truck = data.truck || {};
-        }
-
-        if ($state.current.name == 'transfer.barcode') {
-            $('#barcode').focus();
-        }
-
-        if ($state.current.name == 'transfer.list') {
-            vm.getTransferCandidates();
-        }
-
-
+        if ($state.current.name == 'transfer.barcode') $('#barcode').focus();
+        if ($state.current.name == 'transfer.list') vm.getTransferCandidates();
+        if ($state.current.name == 'transfer.dispatch') transferAnimalService.save_transfer_document(vm.truck);
 
         // IMPLEMENTATION
+        function getNewDocumentNumber() {
+            transferAnimalService.get_transfer_documents_per_truck({
+                truck_id: vm.truck.transfer_vehicle_registration_no,
+                include_docs: true
+            }).then(function (response) {
+                var count = response.rows ? response.rows.length + 1 : 1;
+
+                vm.truck.transfer_document_no = [
+                    ("00" + vm.truck.transfer_vehicle_registration_no).slice(-2),
+                    ("00000" + count).slice(-5)
+                ].join('');
+            });
+        }
+
         function selectAnimal(animal) {
             vm.truck.transfer_animals.forEach(function (a) {
                 a.isSelected = false;
@@ -60,8 +69,6 @@
                 truck_id: vm.truck.transfer_vehicle_registration_no,
                 include_docs: true
             }).then(function (response) {
-                console.log(response.rows);
-
                 vm.truck.transfer_animals = response.rows.map(function (a) {
 
                     return {
@@ -105,14 +112,8 @@
         }
 
         function loadPortion() {
-            vm.truck.transfer_document_no = [
-                new Date().toLocaleDateString(),
-                vm.truck.transfer_vehicle_registration_no
-            ].join('/');
-
             vm.truck.barcode = vm.barcode;
             vm.truck.status = 'Transferred';
-
             transferAnimalService.load_portion(vm.truck)
                 .then(function () {
                     $state.go('transfer.list', {data: {truck: vm.truck}});
@@ -129,13 +130,12 @@
 
         function printList() {
             var note = {
+                document_no: vm.truck.transfer_document_no,
                 doc_type: 'transfer_note',
                 htmlContent: $('#transfer_pdf_content').html()
             };
 
-            dispatchNotesService.save_notes_doc(note).then(function () {
-                printService.print(note);
-            });
+            dispatchNotesService.save_notes_doc(note);
         }
     }
 })();
