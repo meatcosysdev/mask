@@ -74,6 +74,18 @@
                 }
             })
 
+            .state('stunbox.search', {
+                url: "/search",
+
+                views: {
+                    '': {},
+                    'detail@stunbox': {
+                        templateUrl: 'views/stunbox/search.html',
+                        controller: 'StunboxController as vm'
+                    }
+                }
+            })
+
             // SLAUGHTER
             .state('slaughter', {
                 url: "/slaughter",
