@@ -394,3 +394,10 @@ div#pdf_content {
     width: 100%;
     font-size: 15px;
 }
+
+
+@media (min-width: 760px) {
+    .purchase-table {
+        padding: 0 !important;
+    }
+}

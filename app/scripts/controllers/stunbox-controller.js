@@ -83,7 +83,7 @@
         }
 
         function exit() {
-            $state.go('home');
+            $state.go('stunbox');
         }
 
         // STUNBOX VS PURCHASE
