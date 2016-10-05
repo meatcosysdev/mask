@@ -159,7 +159,7 @@
 
             vm.buy_animal.permit_no = vm.producer.permit_no;
             vm.buy_animal.transaction_accepted = true;
-            vm.buy_animal.purchase_invoice_no = ['purchase', new Date().toLocaleDateString(), vm.producer.id_no].join('_');
+            vm.buy_animal.purchase_invoice_no = ['purchase_invoice', new Date().toLocaleDateString(), vm.producer.id_no].join('_');
             vm.buy_animal.producer_no = vm.producer.producer_no;
             vm.buy_animal.truck_id = TRUCK_ID;
 
@@ -183,14 +183,13 @@
 
         function print() {
             var note = {
+                document_no: ['purchase_invoice', new Date().toLocaleDateString(), vm.producer.id_no].join('_'),
                 doc_type: 'purchase_note',
                 htmlContent: $('#purchase_pdf_content').html()
             };
 
             // Save content to db
-            dispatchNotesService.save_notes_doc(note).then(function () {
-                printService.print(note);
-            });
+            dispatchNotesService.save_notes_doc(note);
         }
     }
 })();
