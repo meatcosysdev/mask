@@ -2,24 +2,31 @@
     angular.module('MeatCoApp')
         .controller('StunboxController', stunboxController);
 
-    stunboxController.$inject = ['$state', '$rootScope', 'animalService', 'scannerService'];
+    stunboxController.$inject = ['$state', '$rootScope', 'animalService', 'scannerService', 'stunboxService'];
 
     // Declarations
-    function stunboxController($state, $rootScope, animalService, scannerService) {
+    function stunboxController($state, $rootScope, animalService, scannerService, stunboxService) {
         var vm = this;
 
         vm.stunbox_animals = [];
         vm.new_animal = $rootScope.new_animal || {body_counter: $rootScope.body_counter};
 
         // Methods
+        vm.init = init;
         vm.getStunboxAnimals = getStunboxAnimals;
         vm.addAnimal = addAnimal;
         vm.selectAnimalForEdit = selectAnimalForEdit;
         vm.focusTo = focusTo;
-        vm.init = init;
+        vm.exit = exit;
+
+        // Missing RFIDs
+        vm.getMissingStunboxRFIDS = getMissingStunboxRFIDS;
+        vm.updateRFID = updateRFID;
 
         // INIT
-        vm.init();
+        if ($state.current.name != 'stunbox.search') {
+            vm.init();
+        }
 
         // IMPLEMENTATION
         function getStunboxAnimals() {
@@ -73,6 +80,32 @@
                 vm.new_animal.weight = response.displayMass;
                 vm.focusTo('rfid');
             });
+        }
+
+        function exit() {
+            $state.go('stunbox');
+        }
+
+        // STUNBOX VS PURCHASE
+        function getMissingStunboxRFIDS() {
+            stunboxService.get_stunbox_missing_rfids()
+                .then(function (result) {
+                    vm.stunbox_animals = result['missing_animals'].filter(function (a) {
+                        return a.doc_type == 'stunbox_animals'
+                    });
+
+                    vm.purchase_animals = result['missing_animals'].filter(function (a) {
+                        return a.doc_type == 'purchase_animals'
+                    });
+
+                });
+        }
+
+        function updateRFID(animal) {
+            stunboxService.save_purchase_animal_tag(animal).then(function(){
+                toastr.success("RFID updated successfully!");
+                vm.getMissingStunboxRFIDS();
+            })
         }
     }
 })();

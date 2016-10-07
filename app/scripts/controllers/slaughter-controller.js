@@ -2,10 +2,10 @@
     angular.module('MeatCoApp')
         .controller('SlaughterController', slaughterController);
 
-    slaughterController.$inject = ['$state', '$interval', '$timeout', '$rootScope', 'animalService', 'scannerService', 'dispatchNotesService', 'printService'];
+    slaughterController.$inject = ['$state', '$interval', 'CONFIG', '$rootScope', 'animalService', 'scannerService', 'dispatchNotesService', 'printService'];
 
     // Declarations
-    function slaughterController($state, $interval, $timeout, $rootScope, animalService, scannerService, dispatchNotesService, printService) {
+    function slaughterController($state, $interval, CONFIG, $rootScope, animalService, scannerService, dispatchNotesService, printService) {
         var vm = this;
 
         vm.slaughter_animal = $rootScope.slaughter_animal;
@@ -25,7 +25,7 @@
         if ($state.current.name == 'slaughter') {
             vm.promise = $interval(function () {
                 vm.getSlaughterAnimals();
-            }, 2000);
+            }, CONFIG.sb_reload_interval);
         }
 
         // Get data from the scanners

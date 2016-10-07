@@ -1,0 +1,84 @@
+<div>
+    <div class="col-xs-12 no-padding print-actions no-print">
+        <div class="col-xs-4 no-padding">
+            <button class="btn-default btn-wide" ng-click="vm.getMissingStunboxRFIDS()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Search</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="col-xs-4 no-padding">
+            <button class="btn-default btn-wide" ng-click="vm.exit()">
+                <div class="btn-content">
+                    <div class="display_table">
+                        <div class="table-cell">Exit</div>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div>
+        <div class="col-xs-12">
+            <h1 class="text-center">Missing RFID Report</h1>
+        </div>
+
+        <div class="col-xs-12 margin-top30 no-padding">
+            <div class="col-sm-6">
+                <h3 class="text-center">STUNBOX</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Tag Number</th>
+                        <th>Slaughter Date</th>
+                        <th>Live Mass</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="animal in vm.stunbox_animals | orderBy: 'fmid'">
+                        <td class="text-left">{{animal.fmid}}</td>
+                        <td class="text-left">{{animal.slaughter_on | date:'yyyy-MM-dd'}}</td>
+                        <td class="text-left">{{animal.live_mass}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm-6 purchase-table">
+                <h3 class="text-center">PURCHASE</h3>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Tag Number</th>
+                        <th>Invoice No</th>
+                        <th>Live Mass</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="animal in vm.purchase_animals track by $index">
+                        <td class="text-left" ng-class="{'has-error' : animal.fmid.length != 8  }">
+                            <input ng-model="animal.fmid"
+                                   ng-required="true"
+                                   ng-pattern="/^[a-zA-Z0-9_]{0,8}$/"
+                                   placeholder="fmid"
+                                   type="text"
+                                   name="{{animal.fmid}}"/>
+
+                        </td>
+                        <td class="text-left">{{animal.purchase_invoice_no}}</td>
+                        <td class="text-left">{{animal.live_mass}}</td>
+                        <td class="text-left text-capitalize">
+                            <button class="btn btn-xs btn-danger" ng-click="vm.updateRFID(animal)">update</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

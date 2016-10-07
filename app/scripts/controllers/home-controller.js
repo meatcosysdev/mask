@@ -2,13 +2,15 @@
     angular.module('MeatCoApp')
         .controller('HomeController', homeController);
 
-    homeController.$inject = ['$http'];
+    homeController.$inject = ['$http', 'CONFIG'];
 
     // Declarations
-    function homeController($http) {
+    function homeController($http, CONFIG) {
         var vm = this;
 
         vm.getIp = getIp;
+        vm.app_version = CONFIG.app_version;
+        vm.current_date = moment().format('DD-MMM-YYYY HH:mm');
 
         // INIT
         //vm.getIp();

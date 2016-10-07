@@ -321,6 +321,8 @@
         function get_barcode(doc, side_portion, calculated_portion_weight) {
             var deferred = $q.defer();
 
+            var fat_grading = doc.grading_fat || 0;
+
             pouchdb.query(stunboxPortion, {
                 key: doc.rfid,
                 include_docs: true
@@ -332,7 +334,8 @@
                 // Age + Fat
                 var grade = "000", producer_no = '000001';
                 if (purchases.length > 0) {
-                    grade = purchases[0].doc.teeth_grading + (purchases[0].doc.fat_grading || '0');
+                    grade = purchases[0].doc.teeth_grading + fat_grading;
+
                     if (grade.length < 3) grade += ' ';
                     producer_no = purchases[0].doc.producer_no;
                 }

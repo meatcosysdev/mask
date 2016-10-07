@@ -13,6 +13,8 @@
             get_transfer_animals: get_transfer_animals,
             load_portion: load_portion,
             unload_portion: unload_portion,
+            get_transfer_documents_per_truck: get_transfer_documents_per_truck,
+            save_transfer_document: save_transfer_document
         };
 
         // Reduce functions
@@ -28,6 +30,15 @@
             }
         }
 
+        function transferDocuments(doc) {
+            var midnight = new Date();
+            midnight.setHours(0, 0, 0, 0);
+
+            if (doc.doc_type === 'transfers') {
+                emit(doc);
+            }
+        }
+
         function findPortionFilter(doc) {
             if (doc.doc_type === 'slaughter_portions') {
                 emit(doc.barcode);
@@ -36,32 +47,29 @@
 
         function get_transfer_animals(params) {
             var deferred = $q.defer();
-            pouchdb.query(transferAnimalsFilter, params).then(function (result) {
+            pouchdb.query(transferAnimalsFilter, params)
+                .then(function (result) {
+                    var portions = [];
+                    result.rows.forEach(function (p) {
+                        if (p.doc.truck_id == params.truck_id) {
+                            var id = ["slaughter_side_", p.doc.slaughter_on, p.doc.daily_counter, p.doc.side].join('/');
 
-                var portions = [];
-                result.rows.forEach(function (p) {
-                    if (p.doc.truck_id == params.truck_id) {
-                        var id = ["slaughter_side_", p.doc.slaughter_on, p.doc.daily_counter, p.doc.side].join('/');
-
-                        pouchdb.get(id).catch(function (err) {
-                        }).then(function (doc) {
-                            if (doc) {
-                                pouchdb.get(p.doc.transfer_document_no).catch(function (err) {
-                                }).then(function (transfer_doc) {
+                            // Find slaughter side
+                            pouchdb.get(id).catch(function (err) {
+                            }).then(function (doc) {
+                                if (doc) {
                                     p.doc.is_condemned = doc.is_condemned;
                                     p.doc.condemnation = doc.condemnation;
-                                    p.doc.loaded_on = transfer_doc.loaded_on;
-                                });
-                            }
-                        });
-                        portions.push(p);
-                    }
-                });
+                                    portions.push(p);
+                                }
+                            });
+                        }
+                    });
 
-                deferred.resolve({rows: portions});
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
+                    deferred.resolve({rows: portions});
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
 
             return deferred.promise;
         }
@@ -77,7 +85,7 @@
             }).then(function (doc) {
                 doc.current_status = 'Created';
                 doc.transfer_document_no = '';
-                doc.transfered_on = '';
+                doc.loaded_to_truck_on = '';
                 doc.truck_id = '';
 
                 pouchdb.put(doc);
@@ -109,15 +117,9 @@
                             doc.current_status = transferInfo.status;
                             doc.transfered_on = new Date().toISOString();
                             doc.transfer_document_no = transferInfo.transfer_document_no;
+                            doc.loaded_to_truck_on = new Date().toISOString();
 
-                            // Update status and transfer doc number
-                            pouchdb.put(doc).then(function () {
-
-                                // Add transfer doc
-                                save_transfer_info(transferInfo);
-                            }).catch(function (err) {
-                            });
-
+                            pouchdb.put(doc);
 
                         }).catch(function (err) {
                         });
@@ -131,15 +133,37 @@
             return deferred.promise;
         }
 
-        function save_transfer_info(transferInfo) {
-            pouchdb.get(transferInfo.transfer_document_no).catch(function (err) {
+        // TRANSFER DOCUMENT
+        function get_transfer_documents_per_truck(params) {
+            var deferred = $q.defer();
+            pouchdb.query(transferDocuments, params)
+                .then(function (result) {
+                    var docs = [];
+                    result.rows.forEach(function (p) {
+                        if (p.doc.truck_id == params.truck_id) {
+                            docs.push(p);
+                        }
+                    });
+
+                    deferred.resolve({rows: docs});
+                }).catch(function (err) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        }
+
+        function save_transfer_document(transferInfo) {
+            var document_id = "transfer_" + transferInfo.transfer_document_no;
+
+            pouchdb.get(document_id).catch(function (err) {
                 if (err.name === 'not_found') {
                     var transfer_doc = {
-                        _id: transferInfo.transfer_document_no,
+                        _id: document_id,
                         truck_id: transferInfo.transfer_vehicle_registration_no,
+                        document_no: transferInfo.transfer_document_no,
                         transfer_driver: transferInfo.transfer_driver,
                         transfer_vehicle_registration_no: transferInfo.transfer_vehicle_registration_no,
-                        loaded_on: new Date().toISOString(),
                         current_status: '',
                         doc_type: 'transfers'
                     };
@@ -148,9 +172,10 @@
                 }
             }).then(function (existing_doc) {
                 existing_doc.truck_id = transferInfo.transfer_vehicle_registration_no;
+                existing_doc.document_no = transferInfo.transfer_document_no;
+                existing_doc.current_status = 'loaded';
                 existing_doc.transfer_driver = transferInfo.transfer_driver;
-                existing_doc.transfer_vehicle_registration_no = transferInfo.transfer_vehicle_registration_no;
-                existing_doc.loaded_on = new Date();
+                //existing_doc.loaded_on = new Date().toISOString();
 
                 pouchdb.put(existing_doc);
 

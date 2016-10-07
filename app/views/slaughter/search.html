@@ -83,11 +83,11 @@
                 <tr>
                     <th>Tag Number</th>
                     <th>Body Number</th>
-                    <th>Left Weight</th>
-                    <th>Right Weight</th>
+                    <th>Left Mass/(HOT | COLD)</th>
+                    <th>Right Mass/(HOT | COLD)</th>
                     <th>Grade</th>
                     <th>Teeth</th>
-                    <th>Live Weight</th>
+                    <th>Live Mass</th>
                     <th>Slaughter %</th>
                 </tr>
                 </thead>
@@ -96,8 +96,8 @@
                     ng-click="vm.selectSlaughter(animal)" class="pointer" ng-class="{'success': animal.isSelected }">
                     <td class="text-left">{{animal.tag_number}}</td>
                     <td class="text-left">{{animal.body_counter}}</td>
-                    <td class="text-left">{{animal.left_mass}}</td>
-                    <td class="text-left">{{animal.right_mass}}</td>
+                    <td class="text-left">{{animal.left_mass}} | {{animal.left_mass * .975 | number: 2}}</td>
+                    <td class="text-left">{{animal.right_mass}} | {{animal.right_mass * .975 | number: 2}}</td>
                     <td class="text-left">{{animal.fat_grading}}</td>
                     <td class="text-left">{{animal.teeth_grading}}</td>
                     <td class="text-left">{{animal.live_mass}}</td>

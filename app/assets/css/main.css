@@ -109,6 +109,13 @@ button:hover {
     position: absolute;
 }
 
+.app-version {
+    text-align: right;;
+    right: 10px;
+    top: 10px;
+    position: absolute;
+}
+
 .legend-title {
     position: absolute;
     top: -13px;
@@ -386,4 +393,11 @@ div#pdf_content {
 .invoices-actions select {
     width: 100%;
     font-size: 15px;
+}
+
+
+@media (min-width: 760px) {
+    .purchase-table {
+        padding: 0 !important;
+    }
 }
