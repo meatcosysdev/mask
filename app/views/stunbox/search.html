@@ -40,7 +40,7 @@
                     <tbody>
                     <tr ng-repeat="animal in vm.stunbox_animals | orderBy: 'fmid'">
                         <td class="text-left">{{animal.fmid}}</td>
-                        <td class="text-left">{{animal.slaughter_on}}</td>
+                        <td class="text-left">{{animal.slaughter_on | date:'yyyy-MM-dd'}}</td>
                         <td class="text-left">{{animal.live_mass}}</td>
                     </tr>
                     </tbody>
