@@ -46,7 +46,12 @@
                     var portions = [];
                     result.rows.forEach(function (p) {
                         if (p.doc.truck_id == params.truck_id) {
-                            var side_id = ["slaughter_side_", p.doc.slaughter_on, p.doc.daily_counter, p.doc.side].join('/');
+                            var side_id = [
+                                "slaughter_side_",
+                                moment(p.doc.slaughter_on).format('YYYY-MM-DD'),
+                                p.doc.daily_counter,
+                                p.doc.side
+                            ].join('/');
 
                             // Find slaughter side
                             pouchdb.get(side_id).catch(function (err) {
@@ -56,6 +61,7 @@
                                     p.doc.is_condemned = side_doc.is_condemned;
                                     p.doc.condemnation = side_doc.condemnation;
                                 }
+                                portions.push(p);
                             });
                         }
                     });

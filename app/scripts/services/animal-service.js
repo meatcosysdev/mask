@@ -273,7 +273,7 @@
         function add_portion(slaughter_side, side_part) {
             var id = [
                 "slaughter_portion_",
-                slaughter_side.slaughter_on,
+                moment(slaughter_side.slaughter_on).format('YYYY-MM-DD'),
                 slaughter_side.daily_counter,
                 slaughter_side.side,
                 side_part
