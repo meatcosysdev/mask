@@ -88,10 +88,9 @@
                 doc.loaded_to_truck_on = '';
                 doc.truck_id = '';
 
-                pouchdb.put(doc);
-
-                deferred.resolve({});
-
+                pouchdb.put(doc).then(function () {
+                    deferred.resolve({});
+                });
             }).catch(function (err) {
                 deferred.reject(err);
             });
@@ -119,13 +118,14 @@
                             doc.transfer_document_no = transferInfo.transfer_document_no;
                             doc.loaded_to_truck_on = new Date().toISOString();
 
-                            pouchdb.put(doc);
+                            pouchdb.put(doc).then(function () {
+                                deferred.resolve(result);
+                            });
 
                         }).catch(function (err) {
                         });
                 }
 
-                deferred.resolve(result);
             }).catch(function (err) {
                 deferred.reject(err);
             });
