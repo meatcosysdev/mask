@@ -43,6 +43,8 @@
 
         // IMPLEMENTATION
         function getNewDocumentNumber() {
+            if (vm.truck.transfer_document_no) return;
+
             transferAnimalService.get_transfer_documents_per_truck({
                 truck_id: vm.truck.transfer_vehicle_registration_no,
                 include_docs: true
@@ -92,7 +94,6 @@
                 } else {
                     vm.last_portion = {};
                 }
-
             });
         }
 
