@@ -54,15 +54,15 @@
                             ].join('/');
 
                             // Find slaughter side
-                            pouchdb.get(side_id).catch(function (err) {
-                                portions.push(p);
-                            }).then(function (side_doc) {
-                                if (side_doc) {
-                                    p.doc.is_condemned = side_doc.is_condemned;
-                                    p.doc.condemnation = side_doc.condemnation;
-                                }
-                                portions.push(p);
-                            });
+                            pouchdb.get(side_id)
+                                .catch(function (err) {})
+                                .then(function (side_doc) {
+                                    if (side_doc) {
+                                        p.doc.is_condemned = side_doc.is_condemned;
+                                        p.doc.condemnation = side_doc.condemnation;
+                                    }
+                                    portions.push(p);
+                                });
                         }
                     });
 
@@ -109,7 +109,8 @@
                     var portion = result.rows[0];
 
                     pouchdb.get(portion.id)
-                        .catch(function (err) {})
+                        .catch(function (err) {
+                        })
                         .then(function (doc) {
                             //var testDateUtc = moment.utc();
                             //var localDate = moment(testDateUtc).local().format("YYYY-MM-DD HH:mm:ss");
@@ -124,7 +125,8 @@
                                 deferred.resolve(result);
                             });
 
-                        }).catch(function (err) {});
+                        }).catch(function (err) {
+                        });
                 } else {
                     toastr.error("Could not find barcode!");
                 }
