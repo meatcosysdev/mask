@@ -25,15 +25,12 @@
             if (doc.doc_type === 'slaughter_portions'
                 && doc.current_status == 'Transferred'
                 && doc.transfered_on
-                && moment(doc.transfered_on) > midnight) {
+                && moment().diff(doc.transfered_on, 'hours') <= 24) {
                 emit(doc);
             }
         }
 
         function transferDocuments(doc) {
-            var midnight = new Date();
-            midnight.setHours(0, 0, 0, 0);
-
             if (doc.doc_type === 'transfers') {
                 emit(doc);
             }
@@ -56,10 +53,10 @@
 
                             // Find slaughter side
                             pouchdb.get(id).catch(function (err) {
-                            }).then(function (doc) {
-                                if (doc) {
-                                    p.doc.is_condemned = doc.is_condemned;
-                                    p.doc.condemnation = doc.condemnation;
+                            }).then(function (side_doc) {
+                                if (side_doc) {
+                                    p.doc.is_condemned = side_doc.is_condemned;
+                                    p.doc.condemnation = side_doc.condemnation;
                                     portions.push(p);
                                 }
                             });
@@ -109,8 +106,7 @@
                     var portion = result.rows[0];
 
                     pouchdb.get(portion.id)
-                        .catch(function (err) {
-                        })
+                        .catch(function (err) {})
                         .then(function (doc) {
                             doc.truck_id = transferInfo.transfer_vehicle_registration_no;
                             doc.current_status = transferInfo.status;
@@ -122,8 +118,9 @@
                                 deferred.resolve(result);
                             });
 
-                        }).catch(function (err) {
-                        });
+                        }).catch(function (err) {});
+                } else {
+                    toastr.error("Could not find barcode!");
                 }
 
             }).catch(function (err) {
