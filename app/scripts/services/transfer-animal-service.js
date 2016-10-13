@@ -19,9 +19,6 @@
 
         // Reduce functions
         function transferAnimalsFilter(doc) {
-            var midnight = new Date();
-            midnight.setHours(0, 0, 0, 0);
-
             if (doc.doc_type === 'slaughter_portions'
                 && doc.current_status == 'Transferred'
                 && doc.transfered_on
@@ -49,15 +46,15 @@
                     var portions = [];
                     result.rows.forEach(function (p) {
                         if (p.doc.truck_id == params.truck_id) {
-                            var id = ["slaughter_side_", p.doc.slaughter_on, p.doc.daily_counter, p.doc.side].join('/');
+                            var side_id = ["slaughter_side_", p.doc.slaughter_on, p.doc.daily_counter, p.doc.side].join('/');
 
                             // Find slaughter side
-                            pouchdb.get(id).catch(function (err) {
+                            pouchdb.get(side_id).catch(function (err) {
+                                portions.push(p);
                             }).then(function (side_doc) {
                                 if (side_doc) {
                                     p.doc.is_condemned = side_doc.is_condemned;
                                     p.doc.condemnation = side_doc.condemnation;
-                                    portions.push(p);
                                 }
                             });
                         }
@@ -108,6 +105,9 @@
                     pouchdb.get(portion.id)
                         .catch(function (err) {})
                         .then(function (doc) {
+                            //var testDateUtc = moment.utc();
+                            //var localDate = moment(testDateUtc).local().format("YYYY-MM-DD HH:mm:ss");
+
                             doc.truck_id = transferInfo.transfer_vehicle_registration_no;
                             doc.current_status = transferInfo.status;
                             doc.transfered_on = new Date().toISOString();
