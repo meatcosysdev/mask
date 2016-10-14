@@ -8,14 +8,11 @@
 
     // Declarations
     function pouchdb(CONFIG) {
-//        var remoteDatabase = CONFIG.remove_db_server;
         var remoteDatabase = CONFIG.remove_db_server;
         var db = new PouchDB(CONFIG.db_name);
-
-        db.replicate.from(remoteDatabase);
 
         db.sync(remoteDatabase, {live: true, retry: true});
 
         return db;
-		    };
+    };
 })();
