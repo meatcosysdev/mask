@@ -83,7 +83,7 @@
         }
 
         function exit() {
-            $state.go('stunbox');
+            $state.go('admin');
         }
 
         // STUNBOX VS PURCHASE

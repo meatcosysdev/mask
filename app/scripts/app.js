@@ -346,18 +346,26 @@
                 params: {'data': {value: null}}
             })
 
-            // PRODUCERS
-            .state('producers', {
-                url: '/producers',
+            // ADMIN
+            .state('admin', {
+                url: '/admin',
                 views: {
                     '': {
-                        templateUrl: 'views/producer/main.html'
+                        templateUrl: 'views/admin/main.html'
                     },
-                    'detail@producers': {
+                    'detail@admin': {
+                        templateUrl: 'views/admin/details.html'
+                    }
+                }
+            })
+            .state('admin.producers', {
+                views: {
+                    '': {},
+                    'detail@admin': {
                         templateUrl: 'views/producer/details.html',
                         controller: 'ProducerController as vm'
                     }
-                }
+                },
             })
         ;
     }
