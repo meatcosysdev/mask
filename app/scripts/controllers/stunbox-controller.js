@@ -94,15 +94,23 @@
                         return a.doc_type == 'stunbox_animals'
                     });
 
-                    vm.purchase_animals = result['missing_animals'].filter(function (a) {
-                        return a.doc_type == 'purchase_animals'
+                    vm.purchase_animals = [];
+                    result['missing_animals'].forEach(function (a) {
+                        if (a.doc_type == 'purchase_animals') {
+                            if (a.purchase_invoice_no) {
+                                var date = a.purchase_invoice_no.split('_')[2];
+                                if (date) a.purchase_date = moment(date).format('YYYY-MM-DD');
+                            }
+
+                            vm.purchase_animals.push(a);
+                        }
                     });
 
                 });
         }
 
         function updateRFID(animal) {
-            stunboxService.save_purchase_animal_tag(animal).then(function(){
+            stunboxService.save_purchase_animal_tag(animal).then(function () {
                 toastr.success("RFID updated successfully!");
                 vm.getMissingStunboxRFIDS();
             })

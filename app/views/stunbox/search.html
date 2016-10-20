@@ -38,7 +38,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="animal in vm.stunbox_animals | orderBy: 'fmid'">
+                    <tr ng-repeat="animal in vm.stunbox_animals | orderBy: '-slaughter_on'">
                         <td class="text-left">{{animal.fmid}}</td>
                         <td class="text-left">{{animal.slaughter_on | date:'yyyy-MM-dd'}}</td>
                         <td class="text-left">{{animal.live_mass}}</td>
@@ -55,12 +55,11 @@
                     <tr>
                         <th>Tag Number</th>
                         <th>Invoice No</th>
-                        <th>Live Mass</th>
-                        <th></th>
+                        <th colspan="2">Live Mass</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="animal in vm.purchase_animals track by $index">
+                    <tr ng-repeat="animal in vm.purchase_animals | orderBy: '-purchase_date'">
                         <td class="text-left" ng-class="{'has-error' : animal.fmid.length != 8  }">
                             <input ng-model="animal.fmid"
                                    ng-required="true"
@@ -70,7 +69,7 @@
                                    name="{{animal.fmid}}"/>
 
                         </td>
-                        <td class="text-left">{{animal.purchase_invoice_no}}</td>
+                        <td class="text-left">{{animal.purchase_date}}</td>
                         <td class="text-left">{{animal.live_mass}}</td>
                         <td class="text-left text-capitalize">
                             <button class="btn btn-xs btn-danger" ng-click="vm.updateRFID(animal)">update</button>
